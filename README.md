@@ -1,6 +1,6 @@
 **Weather App** is an app that shows to the user data related to the Weather Forecast near his location.
 
-> **Tools:** Jetpack Compose, Retrofit, Android, Kotlin
+> **Tools:** **Jetpack Compose,**  **Retrofit**, **Android Native**, **Kotlin**, **Dagger**, **Clean Code**
 
 > **Data Source:** **[Open-Meteo](https://open-meteo.com/en/docs)** A free Weather Forecast API
 
