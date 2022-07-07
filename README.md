@@ -1,6 +1,7 @@
 **Weather App** is an app that shows to the user some data related to the weather near his location.
 
 > **Tools:** Jetpack Compose, Retrofit, Android, Kotlin
+
 > **Design:** **[Design Inspiration](https://www.uplabs.com/posts/weather-app-ui-ux-design)**
 
 ### Cirilo Bido - Mobile Developer
