@@ -4,7 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_cloudy.xml" value="0.1725" />
+        <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_drop.xml" value="0.158" />
+        <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_location_marker.xml" value="0.158" />
+        <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_pressure.xml" value="0.1665" />
+        <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_rainy.xml" value="0.158" />
+        <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_rainythunder.xml" value="0.158" />
+        <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_snowy.xml" value="0.158" />
         <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_wind.xml" value="0.1" />
+        <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_windy.xml" value="0.158" />
       </map>
     </option>
   </component>
