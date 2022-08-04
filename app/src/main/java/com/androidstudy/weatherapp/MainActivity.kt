@@ -142,12 +142,7 @@ class MainActivity : ComponentActivity() {
                                 .fillMaxSize()
                         ) {
                             if (weatherState.isLoading) {
-                                CircularProgressIndicator(
-                                    color = BlueColor,
-                                    modifier = Modifier
-                                        .align(Alignment.Center)
-                                        .padding(16.dp)
-                                )
+                                LoadingComposable()
                             } else if (weatherState.error != null) {
                                 Text(
                                     text = weatherState.error!!,
