@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 
 data class WeatherDataModel(
     val time: LocalDateTime,
-    val temperatureCelcius: Double,
+    val temperatureCelsius: Double,
     val pressure: Double,
     val windSpeed : Double,
     val humidity: Double,

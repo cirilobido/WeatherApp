@@ -45,7 +45,7 @@ fun WeatherDataDisplay(
                 style = TextStyle(
                     fontSize = 14.sp,
                     color = SubtitlesTextColor,
-                    fontWeight = FontWeight.SemiBold,
+                    fontWeight = FontWeight.Normal,
                 ),
             )
         }

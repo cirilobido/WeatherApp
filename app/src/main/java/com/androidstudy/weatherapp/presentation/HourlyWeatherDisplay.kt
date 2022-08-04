@@ -1,8 +1,6 @@
 package com.androidstudy.weatherapp.presentation
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -10,10 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.remember
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -38,7 +33,7 @@ fun HourlyWeatherDisplay(
     }
     Column(
         modifier = Modifier
-            .padding(horizontal = 12.dp),
+            .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
@@ -50,15 +45,15 @@ fun HourlyWeatherDisplay(
                 fontWeight = FontWeight.SemiBold,
             ),
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         Image(
             painter = painterResource(id = weatherData.weatherType.iconRes),
             contentDescription = weatherData.weatherType.weatherDesc,
             modifier = Modifier.size(34.dp)
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = "${weatherData.temperatureCelcius.toInt()}°",
+            text = "${weatherData.temperatureCelsius.toInt()}°",
             style = TextStyle(
                 fontSize = 22.sp,
                 color = Color.Black,

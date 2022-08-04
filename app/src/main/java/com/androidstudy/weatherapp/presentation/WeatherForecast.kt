@@ -14,6 +14,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.plcoding.weatherapp.domain.weather.WeatherType
 import com.plcoding.weatherapp.presentation.ui.theme.DividerColor
 import java.time.LocalDateTime
 
@@ -22,55 +23,104 @@ fun WeatherForecast(
     state: WeatherState,
     day: Int
 ) {
-    state.weatherInfo?.weatherDataPerDay?.get(day)
-        ?.filter { filterData -> filterData.time >= LocalDateTime.now().minusHours(1) }
-        ?.toList()
-        ?.let { data ->
-            val dayName = when (day) {
-                0 -> "Today"
-                1 -> "Tomorrow"
-                else -> {
-                    LocalDateTime
-                        .now()
-                        .plusDays(day.toLong())
-                        .dayOfWeek
-                        .toString()
-                        .lowercase()
-                        .replaceFirstChar {
-                            it.uppercase()
-                        }
+    val weatherDataList = state.weatherInfo?.weatherDataPerDay
+
+    val dayName = when (day) {
+        0 -> "Today's Forecast"
+        1 -> "Tomorrow"
+        else -> {
+            LocalDateTime
+                .now()
+                .plusDays(day.toLong())
+                .dayOfWeek
+                .toString()
+                .lowercase()
+                .replaceFirstChar {
+                    it.uppercase()
+                }
+        }
+    }
+
+    if (day >= 1) {
+        val weatherTypeList = ArrayList<Int>()
+        var maxTemperature = 0.0
+        var minTemperature = 60.0
+        weatherDataList?.get(day)
+            ?.map {
+                weatherTypeList.add(it.weatherType.weatherCode)
+                maxTemperature = if (maxTemperature > it.temperatureCelsius){
+                    maxTemperature
+                } else {
+                    it.temperatureCelsius
+                }
+                minTemperature = if (minTemperature < it.temperatureCelsius){
+                    minTemperature
+                } else {
+                    it.temperatureCelsius
                 }
             }
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                Text(
-                    text = dayName,
-                    style = TextStyle(
-                        fontSize = 22.sp,
-                        color = Color.Black,
-                        fontWeight = FontWeight.SemiBold,
+            ?.toList()
+        val weatherAverageCode = weatherTypeList
+            .groupingBy { it }
+            .eachCount()
+            .maxByOrNull { it.value }
+            ?.key
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Divider(
+                color = DividerColor
+                    .copy(
+                        alpha = 0.5f
                     ),
-                    modifier = Modifier
-                        .padding(16.dp)
-                )
-                Divider(
-                    color = DividerColor
-                        .copy(
-                            alpha = 0.5f
-                        ),
-                    thickness = 0.2.dp
-                )
-                LazyRow(
-                    modifier = Modifier
-                        .padding(16.dp),
-                    content = {
-                        items(data) { weatherData ->
-                            HourlyWeatherDisplay(weatherData = weatherData)
-                        }
-                    })
-            }
+                thickness = 0.2.dp
+            )
+            DailyWeatherDisplay(
+                dayName = dayName,
+                weatherType = WeatherType.fromWMO(weatherAverageCode ?: 0),
+                maxTemperature = maxTemperature,
+                minTemperature = minTemperature
+            )
         }
+    } else {
+        weatherDataList?.get(day)
+            ?.filter { filterData ->
+                filterData.time >= LocalDateTime.now().minusHours(1)
+            }
+            ?.toList()
+            ?.let { data ->
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = dayName,
+                        style = TextStyle(
+                            fontSize = 20.sp,
+                            color = Color.Black,
+                            fontWeight = FontWeight.SemiBold,
+                        ),
+                        modifier = Modifier
+                            .padding(16.dp)
+                    )
+                    Divider(
+                        color = DividerColor
+                            .copy(
+                                alpha = 0.5f
+                            ),
+                        thickness = 0.2.dp
+                    )
+                    LazyRow(
+                        modifier = Modifier
+                            .padding(vertical = 16.dp),
+                        content = {
+                            items(data) { weatherData ->
+                                HourlyWeatherDisplay(weatherData = weatherData)
+                            }
+                        }
+                    )
+                }
+            }
+    }
 }

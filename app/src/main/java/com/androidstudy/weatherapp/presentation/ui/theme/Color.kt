@@ -10,4 +10,4 @@ val LightTurquoiseColor = Color(0xFF90dbfa)
 
 val BackgroundWhiteColor = Color(0xFFFFFFFF)
 val DividerColor = Color(0xFFcdcdcf)
-val SubtitlesTextColor = Color(0xFFcdcdcf)
+val SubtitlesTextColor = Color(0xFF9c9c9c)
