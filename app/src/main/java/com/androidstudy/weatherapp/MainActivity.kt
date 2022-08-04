@@ -1,6 +1,7 @@
 package com.androidstudy.weatherapp
 
 import android.Manifest
+import android.location.Address
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -35,7 +36,8 @@ import java.time.LocalDateTime
 class MainActivity : ComponentActivity() {
     private val viewModel: WeatherViewModel by viewModels()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
-    private lateinit var state: WeatherState
+    private lateinit var weatherState: WeatherState
+    private lateinit var addressState: AddressState
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +45,7 @@ class MainActivity : ComponentActivity() {
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
             viewModel.loadWeatherInfo()
+            viewModel.getLocationAddress()
         }
         permissionLauncher.launch(
             arrayOf(
@@ -51,7 +54,8 @@ class MainActivity : ComponentActivity() {
             )
         )
         setContent {
-            state = viewModel.state
+            weatherState = viewModel.weatherState
+            addressState = viewModel.addressState
             WeatherAppTheme {
                 Column(
                     modifier = Modifier
@@ -89,23 +93,42 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier
                                     .fillMaxWidth()
                             ) {
-                                Text(
-                                    text = "Bonao",
-                                    style = TextStyle(
-                                        fontSize = 22.sp,
-                                        color = Color.Black,
-                                        fontWeight = FontWeight.Bold,
-                                    ),
-                                )
-                                Text(
-                                    text = "Dominican Republic",
-                                    style = TextStyle(
-                                        fontSize = 18.sp,
-                                        color = SubtitlesTextColor,
-                                        fontWeight = FontWeight.SemiBold,
-                                    ),
-                                )
+                                if (addressState.isLoading && weatherState.isLoading) {
+                                    CircularProgressIndicator(
+                                        color = BlueColor,
+                                        modifier = Modifier
+                                            .padding(16.dp)
+                                    )
+                                } else if (addressState.error != null) {
+                                    Text(
+                                        text = addressState.error!!,
+                                        style = TextStyle(
+                                            fontSize = 18.sp,
+                                            color = SubtitlesTextColor,
+                                            fontWeight = FontWeight.SemiBold,
+                                        ),
+                                    )
+                                } else {
+                                    Text(
+                                        text = addressState.addressInfo?.locality.let { it ?: "" },
+                                        style = TextStyle(
+                                            fontSize = 22.sp,
+                                            color = Color.Black,
+                                            fontWeight = FontWeight.Bold,
+                                        ),
+                                    )
+                                    Text(
+                                        text = addressState.addressInfo?.countryName.let { it ?: "" },
+                                        style = TextStyle(
+                                            fontSize = 18.sp,
+                                            color = SubtitlesTextColor,
+                                            fontWeight = FontWeight.SemiBold,
+                                        ),
+                                    )
+
+                                }
                             }
+
                         }
                         Divider(
                             color = DividerColor
@@ -114,21 +137,20 @@ class MainActivity : ComponentActivity() {
                                 ),
                             thickness = 0.2.dp
                         )
-
                         Box(
                             modifier = Modifier
                                 .fillMaxSize()
                         ) {
-                            if (state.isLoading) {
+                            if (weatherState.isLoading) {
                                 CircularProgressIndicator(
                                     color = BlueColor,
                                     modifier = Modifier
                                         .align(Alignment.Center)
                                         .padding(16.dp)
                                 )
-                            } else if (state.error != null) {
+                            } else if (weatherState.error != null) {
                                 Text(
-                                    text = state.error!!,
+                                    text = weatherState.error!!,
                                     style = TextStyle(
                                         textAlign = TextAlign.Center,
                                         fontSize = 22.sp,
@@ -142,18 +164,18 @@ class MainActivity : ComponentActivity() {
                             } else {
                                 Box(
                                     /*modifier = Modifier
-                                        .fillMaxWidth()
-                                        .heightIn(400.dp)
-                                        .background(
-                                            brush = Brush.radialGradient(
-                                                colors = listOf(
-                                                    BlueColor.copy(alpha = 0.3f),
-                                                    BlueColor.copy(alpha = 0.2f),
-                                                    BlueColor.copy(alpha = 0.1f),
-                                                    BackgroundWhiteColor
-                                                )
+                                    .fillMaxWidth()
+                                    .heightIn(400.dp)
+                                    .background(
+                                        brush = Brush.radialGradient(
+                                            colors = listOf(
+                                                BlueColor.copy(alpha = 0.3f),
+                                                BlueColor.copy(alpha = 0.2f),
+                                                BlueColor.copy(alpha = 0.1f),
+                                                BackgroundWhiteColor
                                             )
-                                        )*/
+                                        )
+                                    )*/
                                 ) {
                                     Column(
                                         modifier = Modifier
@@ -161,19 +183,19 @@ class MainActivity : ComponentActivity() {
                                             .fillMaxWidth()
                                     ) {
                                         WeatherCard(
-                                            state = state,
+                                            state = weatherState,
                                         )
                                         Column(
                                             modifier = Modifier
                                                 .background(BackgroundWhiteColor)
                                         ) {
-                                            WeatherForecast(state = state, day = 0)
-                                            WeatherForecast(state = state, day = 1)
-                                            WeatherForecast(state = state, day = 2)
-                                            WeatherForecast(state = state, day = 3)
-                                            WeatherForecast(state = state, day = 4)
-                                            WeatherForecast(state = state, day = 5)
-                                            WeatherForecast(state = state, day = 6)
+                                            WeatherForecast(state = weatherState, day = 0)
+                                            WeatherForecast(state = weatherState, day = 1)
+                                            WeatherForecast(state = weatherState, day = 2)
+                                            WeatherForecast(state = weatherState, day = 3)
+                                            WeatherForecast(state = weatherState, day = 4)
+                                            WeatherForecast(state = weatherState, day = 5)
+                                            WeatherForecast(state = weatherState, day = 6)
                                             Spacer(modifier = Modifier.height(20.dp))
                                         }
                                     }
