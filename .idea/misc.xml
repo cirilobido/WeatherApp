@@ -4,11 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_cloudy.xml" value="0.1725" />
+        <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_drop.xml" value="0.158" />
+        <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_location_marker.xml" value="0.158" />
+        <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_pressure.xml" value="0.1665" />
+        <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_rainy.xml" value="0.158" />
+        <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_rainythunder.xml" value="0.158" />
+        <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_snowy.xml" value="0.158" />
         <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_wind.xml" value="0.1" />
+        <entry key="..\:/Users/CiriloBido/Desktop/Android/WeatherApp/app/src/main/res/drawable/ic_windy.xml" value="0.158" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
