@@ -17,7 +17,6 @@ import com.androidstudy.weatherapp.R
 @Composable
 fun LoadingComposable() {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_animation))
-
     Box(
         modifier = Modifier
             .fillMaxSize()

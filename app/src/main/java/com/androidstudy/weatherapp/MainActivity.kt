@@ -34,7 +34,7 @@ import com.plcoding.weatherapp.presentation.ui.theme.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WeatherActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() {
     private val viewModel: WeatherViewModel by viewModels()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var weatherState: WeatherState
