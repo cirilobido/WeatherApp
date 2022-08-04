@@ -9,7 +9,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,13 +23,13 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.androidstudy.weatherapp.presentation.WeatherCard
-import com.androidstudy.weatherapp.presentation.WeatherState
-import com.androidstudy.weatherapp.presentation.WeatherViewModel
+import com.androidstudy.weatherapp.presentation.*
 import com.plcoding.weatherapp.presentation.ui.theme.*
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -139,7 +141,7 @@ class MainActivity : ComponentActivity() {
                                 )
                             } else {
                                 Box(
-                                    modifier = Modifier
+                                    /*modifier = Modifier
                                         .fillMaxWidth()
                                         .heightIn(400.dp)
                                         .background(
@@ -151,33 +153,29 @@ class MainActivity : ComponentActivity() {
                                                     BackgroundWhiteColor
                                                 )
                                             )
-                                        )
+                                        )*/
                                 ) {
                                     Column(
                                         modifier = Modifier
+                                            .verticalScroll(rememberScrollState())
                                             .fillMaxWidth()
                                     ) {
                                         WeatherCard(
                                             state = state,
                                         )
-                                        Spacer(Modifier.height(16.dp))
-                                        Text(
-                                            text = "Today",
-                                            style = TextStyle(
-                                                fontSize = 22.sp,
-                                                color = Color.Black,
-                                                fontWeight = FontWeight.SemiBold,
-                                            ),
+                                        Column(
                                             modifier = Modifier
-                                                .padding(16.dp)
-                                        )
-                                        Divider(
-                                            color = DividerColor
-                                                .copy(
-                                                    alpha = 0.5f
-                                                ),
-                                            thickness = 0.2.dp
-                                        )
+                                                .background(BackgroundWhiteColor)
+                                        ) {
+                                            WeatherForecast(state = state, day = 0)
+                                            WeatherForecast(state = state, day = 1)
+                                            WeatherForecast(state = state, day = 2)
+                                            WeatherForecast(state = state, day = 3)
+                                            WeatherForecast(state = state, day = 4)
+                                            WeatherForecast(state = state, day = 5)
+                                            WeatherForecast(state = state, day = 6)
+                                            Spacer(modifier = Modifier.height(20.dp))
+                                        }
                                     }
                                 }
                             }

@@ -122,42 +122,33 @@ fun WeatherCard(
                     }
                 }
             }
-            Card(
-                elevation = 0.dp,
-                backgroundColor = BackgroundWhiteColor,
-                shape = RoundedCornerShape(10.dp),
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    WeatherDataDisplay(
-                        value = data.humidity.toInt(),
-                        title = "Humidity",
-                        unit = "%",
-                        icon = ImageVector.vectorResource(id = R.drawable.ic_drop),
-                        iconTint = LightTurquoiseColor
-                    )
-                    WeatherDataDisplay(
-                        value = data.windSpeed.toInt(),
-                        title = "Wind",
-                        unit = "km/h",
-                        icon = ImageVector.vectorResource(id = R.drawable.ic_wind),
-                        iconTint = BlueColor
-                    )
-                    WeatherDataDisplay(
-                        value = data.pressure.toInt(),
-                        title = "Pressure",
-                        unit = "hpa",
-                        icon = ImageVector.vectorResource(id = R.drawable.ic_pressure),
-                        iconTint = OrangeColor
-                    )
-                }
+                WeatherDataDisplay(
+                    value = data.humidity.toInt(),
+                    title = "Humidity",
+                    unit = "%",
+                    icon = ImageVector.vectorResource(id = R.drawable.ic_drop),
+                    iconTint = LightTurquoiseColor
+                )
+                WeatherDataDisplay(
+                    value = data.windSpeed.toInt(),
+                    title = "Wind",
+                    unit = "km/h",
+                    icon = ImageVector.vectorResource(id = R.drawable.ic_wind),
+                    iconTint = BlueColor
+                )
+                WeatherDataDisplay(
+                    value = data.pressure.toInt(),
+                    title = "Pressure",
+                    unit = "hpa",
+                    icon = ImageVector.vectorResource(id = R.drawable.ic_pressure),
+                    iconTint = OrangeColor
+                )
             }
         }
     }
