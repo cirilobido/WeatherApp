@@ -1,7 +1,6 @@
-package com.androidstudy.weatherapp.presentation
+package com.androidstudy.weatherapp.presentation.ui.weather
 
 import android.app.Application
-import android.location.Address
 import android.location.Geocoder
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

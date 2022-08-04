@@ -1,4 +1,4 @@
-package com.androidstudy.weatherapp.presentation
+package com.androidstudy.weatherapp.presentation.ui.weather
 
 import com.androidstudy.weatherapp.domain.weather.WeatherInfo
 
