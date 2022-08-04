@@ -14,14 +14,17 @@ import androidx.compose.material.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.androidstudy.weatherapp.presentation.WeatherCard
+import com.androidstudy.weatherapp.presentation.WeatherState
 import com.androidstudy.weatherapp.presentation.WeatherViewModel
 import com.plcoding.weatherapp.presentation.ui.theme.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: WeatherViewModel by viewModels()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+    private lateinit var state: WeatherState
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,81 +49,140 @@ class MainActivity : ComponentActivity() {
             )
         )
         setContent {
+            state = viewModel.state
             WeatherAppTheme {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(BackgroundWhiteColor),
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
+                    Column(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 20.dp)
-                            .padding(16.dp)
+                            .fillMaxSize()
                     ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 20.dp)
+                                .padding(16.dp)
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(38.dp)
+                                    .clip(CircleShape)
+                                    .background(BlueColor.copy(alpha = 0.2f))
+                            ) {
+                                Icon(
+                                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_location_marker),
+                                    contentDescription = "Location Marker",
+                                    tint = BlueColor,
+                                    modifier = Modifier
+                                        .align(Alignment.Center)
+                                        .size(30.dp)
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = "Bonao",
+                                    style = TextStyle(
+                                        fontSize = 22.sp,
+                                        color = Color.Black,
+                                        fontWeight = FontWeight.Bold,
+                                    ),
+                                )
+                                Text(
+                                    text = "Dominican Republic",
+                                    style = TextStyle(
+                                        fontSize = 18.sp,
+                                        color = SubtitlesTextColor,
+                                        fontWeight = FontWeight.SemiBold,
+                                    ),
+                                )
+                            }
+                        }
+                        Divider(
+                            color = DividerColor
+                                .copy(
+                                    alpha = 0.5f
+                                ),
+                            thickness = 0.2.dp
+                        )
+
                         Box(
                             modifier = Modifier
-                                .size(38.dp)
-                                .clip(CircleShape)
-                                .background(BlueColor.copy(alpha = 0.2f))
+                                .fillMaxSize()
                         ) {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_location_marker),
-                                contentDescription = "Location Marker",
-                                tint = BlueColor,
-                                modifier = Modifier
-                                    .align(Alignment.Center)
-                                    .size(30.dp)
-                            )
-                        }
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Column(
-                        ) {
-                            Text(
-                                text = "Dominican Republic",
-                                style = TextStyle(
-                                    fontSize = 22.sp,
-                                    color = Color.Black,
-                                    fontWeight = FontWeight.Bold,
-                                ),
-                            )
-                            Text(
-                                text = "Bonao",
-                                style = TextStyle(
-                                    fontSize = 18.sp,
-                                    color = SubtitlesTextColor,
-                                    fontWeight = FontWeight.SemiBold,
-                                ),
-                            )
+                            if (state.isLoading) {
+                                CircularProgressIndicator(
+                                    color = BlueColor,
+                                    modifier = Modifier
+                                        .align(Alignment.Center)
+                                        .padding(16.dp)
+                                )
+                            } else if (state.error != null) {
+                                Text(
+                                    text = state.error!!,
+                                    style = TextStyle(
+                                        textAlign = TextAlign.Center,
+                                        fontSize = 22.sp,
+                                        color = Color.Black,
+                                        fontWeight = FontWeight.Normal,
+                                    ),
+                                    modifier = Modifier
+                                        .align(Alignment.Center)
+                                        .padding(16.dp)
+                                )
+                            } else {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .heightIn(400.dp)
+                                        .background(
+                                            brush = Brush.radialGradient(
+                                                colors = listOf(
+                                                    BlueColor.copy(alpha = 0.3f),
+                                                    BlueColor.copy(alpha = 0.2f),
+                                                    BlueColor.copy(alpha = 0.1f),
+                                                    BackgroundWhiteColor
+                                                )
+                                            )
+                                        )
+                                ) {
+                                    Column(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                    ) {
+                                        WeatherCard(
+                                            state = state,
+                                        )
+                                        Spacer(Modifier.height(16.dp))
+                                        Text(
+                                            text = "Today",
+                                            style = TextStyle(
+                                                fontSize = 22.sp,
+                                                color = Color.Black,
+                                                fontWeight = FontWeight.SemiBold,
+                                            ),
+                                            modifier = Modifier
+                                                .padding(16.dp)
+                                        )
+                                        Divider(
+                                            color = DividerColor
+                                                .copy(
+                                                    alpha = 0.5f
+                                                ),
+                                            thickness = 0.2.dp
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
-                    Divider(
-                        color = DividerColor
-                            .copy(
-                                alpha = 0.5f
-                            ),
-                        thickness = 0.2.dp)
-                    WeatherCard(
-                        state = viewModel.state,
-                    )
-                    Spacer(Modifier.height(16.dp))
-                    Text(
-                        text = "Today",
-                        style = TextStyle(
-                            fontSize = 22.sp,
-                            color = Color.Black,
-                            fontWeight = FontWeight.SemiBold,
-                        ),
-                        modifier = Modifier
-                            .padding(16.dp)
-                    )
-                    Divider(
-                        color = DividerColor
-                            .copy(
-                                alpha = 0.5f
-                            ),
-                        thickness = 0.2.dp)
                 }
             }
         }
