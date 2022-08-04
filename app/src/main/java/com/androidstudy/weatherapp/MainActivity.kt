@@ -104,7 +104,7 @@ class MainActivity : ComponentActivity() {
                                         text = addressState.error!!,
                                         style = TextStyle(
                                             fontSize = 18.sp,
-                                            color = SubtitlesTextColor,
+                                            color = RedColor,
                                             fontWeight = FontWeight.SemiBold,
                                         ),
                                     )
@@ -154,7 +154,7 @@ class MainActivity : ComponentActivity() {
                                     style = TextStyle(
                                         textAlign = TextAlign.Center,
                                         fontSize = 22.sp,
-                                        color = Color.Black,
+                                        color = RedColor,
                                         fontWeight = FontWeight.Normal,
                                     ),
                                     modifier = Modifier

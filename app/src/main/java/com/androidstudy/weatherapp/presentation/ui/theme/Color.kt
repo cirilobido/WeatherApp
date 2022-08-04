@@ -2,6 +2,7 @@ package com.plcoding.weatherapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val RedColor = Color(0xFFf92f60)
 val OrangeColor = Color(0xFFfdbb5a)
 val BlueColor = Color(0xFF439dfd)
 val LightBlueColor = Color(0xFFf1f8fe)
