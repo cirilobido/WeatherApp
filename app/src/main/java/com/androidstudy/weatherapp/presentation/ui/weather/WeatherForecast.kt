@@ -10,10 +10,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.androidstudy.weatherapp.R
 import com.plcoding.weatherapp.domain.weather.WeatherType
 import com.plcoding.weatherapp.presentation.ui.theme.DividerColor
 import java.time.LocalDateTime
@@ -26,8 +28,8 @@ fun WeatherForecast(
     val weatherDataList = state.weatherInfo?.weatherDataPerDay
 
     val dayName = when (day) {
-        0 -> "Today's Forecast"
-        1 -> "Tomorrow"
+        0 -> stringResource(R.string.todays_forecast)
+        1 -> stringResource(R.string.tomorrow)
         else -> {
             LocalDateTime
                 .now()
