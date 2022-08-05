@@ -19,6 +19,7 @@ import com.androidstudy.weatherapp.R
 import com.plcoding.weatherapp.domain.weather.WeatherType
 import com.plcoding.weatherapp.presentation.ui.theme.DividerColor
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun WeatherForecast(
@@ -86,9 +87,12 @@ fun WeatherForecast(
             )
         }
     } else {
+        val localTime = LocalDateTime.now()
+        localTime.format(DateTimeFormatter.ISO_DATE_TIME)
         weatherDataList?.get(day)
             ?.filter { filterData ->
-                filterData.time >= LocalDateTime.now().minusHours(1)
+                filterData.time.hour >= localTime.hour - 1
+                        && filterData.time.dayOfMonth == localTime.dayOfMonth
             }
             ?.toList()
             ?.let { data ->
