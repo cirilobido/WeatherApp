@@ -53,6 +53,7 @@ class SplashScreenActivity : ComponentActivity() {
                 LaunchedEffect(key1 = true, ){
                     delay(2700)
                     startActivity(intent)
+                    finishAfterTransition()
 //                    navController.popBackStack()
 //                    navController.navigate(AppScreens.WeatherScreen.route)
                 }
