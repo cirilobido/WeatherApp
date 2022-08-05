@@ -35,7 +35,7 @@ fun WeatherDataDisplay(
             Text(
                 text = "$value$unit",
                 style = TextStyle(
-                    fontSize = 16.sp,
+                    fontSize = 18.sp,
                     color = Color.Black,
                     fontWeight = FontWeight.Bold,
                 ),
@@ -45,7 +45,7 @@ fun WeatherDataDisplay(
                 style = TextStyle(
                     fontSize = 14.sp,
                     color = SubtitlesTextColor,
-                    fontWeight = FontWeight.Normal,
+                    fontWeight = FontWeight.W500,
                 ),
             )
         }

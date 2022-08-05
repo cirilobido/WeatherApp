@@ -30,7 +30,7 @@ fun WeatherCard(
         Column() {
             Card(
                 elevation = 0.dp,
-                backgroundColor = LightBlueColor,
+                backgroundColor = LightBlueTintColor.copy(alpha = 0.3f),
                 shape = RoundedCornerShape(10.dp),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -84,9 +84,9 @@ fun WeatherCard(
                         }",
                         modifier = Modifier.align(Alignment.CenterHorizontally),
                         style = TextStyle(
-                            fontSize = 12.sp,
+                            fontSize = 14.sp,
                             color = Color.Black.copy(alpha = 0.3f),
-                            fontWeight = FontWeight.Normal,
+                            fontWeight = FontWeight.SemiBold,
                         ),
                     )
                     Spacer(Modifier.height(16.dp))
