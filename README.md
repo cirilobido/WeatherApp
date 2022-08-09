@@ -1,3 +1,5 @@
+![image](./preview/preview_banner.jpg)
+
 **Weather App** is an app that shows to the user data related to the Weather Forecast near his location.
 
 > **Tools:** **Jetpack Compose,**  **Retrofit**, **Android Native**, **Kotlin**, **Dagger**, **Clean Code**
